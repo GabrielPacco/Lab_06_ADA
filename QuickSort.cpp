@@ -28,6 +28,18 @@ void generarNumeros(int *A, int n)
     }
 }
 
+// Verificar si el arreglo esta ordenado
+bool estaOrdenado(int *A, int n)
+{
+    for (int i = 0; i < n - 1; i++)
+    {
+        if (A[i] > A[i + 1])
+        {
+            return false;
+        }
+    }
+    return true;
+}
 
 int Partition(int *A, int p, int r)
 {
@@ -50,6 +62,7 @@ void QuickSort(int *A, int p, int r)
     if (p < r)
     {
         int pivot = Partition(A, p, r);
+        //estaOrdenado(A, pivot);
         QuickSort(A, p, pivot - 1);
         QuickSort(A, pivot + 1, r);
     }
@@ -58,7 +71,7 @@ void QuickSort(int *A, int p, int r)
 int main()
 {
     int *A;
-    int n = 100000;
+    int n = 100;
     A = new int[n];
 
     generarNumeros(A, n);
