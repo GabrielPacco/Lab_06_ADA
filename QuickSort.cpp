@@ -1,5 +1,6 @@
 #include <iostream>
 #include <chrono>
+#include <time.h>
 using namespace std;
 
 struct Timer
@@ -15,6 +16,18 @@ Timer()
     std::chrono::duration<float, std::milli> duration = end - m_start;
     std::cout << duration.count() << " milisegundos" << std::endl;
 }};
+
+
+// Generar numeros aleatorios 
+void generarNumeros(int *A, int n)
+{
+    srand((unsigned int)time(NULL));
+    for (int i = 0; i < n; i++)
+    {
+        A[i] = rand() % 10000;
+    }
+}
+
 
 int Partition(int *A, int p, int r)
 {
@@ -44,8 +57,11 @@ void QuickSort(int *A, int p, int r)
 
 int main()
 {
-    int A[] = {23,5,3,1,2,4,6,7,8,92};
-    int n = sizeof(A) / sizeof(A[0]);
+    int *A;
+    int n = 100000;
+    A = new int[n];
+
+    generarNumeros(A, n);
 
     QuickSort(A, 0, n - 1);
     Timer t;
