@@ -29,11 +29,11 @@ void generarNumeros(int *A, int n)
 }
 
 // Verificar si el arreglo esta ordenado
-bool estaOrdenado(int *A, int n, bool ord = true)
+bool estaOrdenado(int *A, int n)
 {
     for (int i = 0; i < n - 1; i++)
     {
-        if (A[i] > A[i + 1] == ord)
+        if (A[i] > A[i + 1])
         {
             return false;
         }
@@ -68,7 +68,9 @@ void QuickSort(int *A, int p, int r)
     }
 }
 
-void quicksort_opt(int * A, int p, int r)
+// verificar si el arreglo esta ordenado
+// caso contrario ordenarlo
+void QuickSort_Modified(int * A, int p, int r)
 {
     if (estaOrdenado(A,r+1)){
         std::cout << "El arreglo esta ordenado" << std::endl;
@@ -76,12 +78,12 @@ void quicksort_opt(int * A, int p, int r)
     }
     if (estaOrdenado(A,r+1))
     {
-        int tmp;
-        for (int i = 1; i < r/2 + 1; ++i)
+        int aux;
+        for (int i = 1; i < r/2 + 1; i++)
         {
-            tmp = A[i];
+            aux = A[i];
             A[i] = A[r - i];
-            A[r - i] = tmp;
+            A[r - i] = aux;
         }
         return;
     }
@@ -95,9 +97,9 @@ int main()
     A = new int[n];
 
     //generarNumeros(A, n);
-    A = new int [n] { 6, 7, 8, 9, 10, 1, 2, 3, 4, 5};
+    A = new int [n] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
     //QuickSort(A, 0, n - 1);
-    quicksort_opt(A, 0, n - 1);
+    QuickSort_Modified(A, 0, n - 1);
     Timer t;
     for (int i = 0; i < n; i++)
     {
