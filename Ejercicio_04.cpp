@@ -35,6 +35,24 @@ void generarNumeros(int *A, int n)
     }
 }
 
+void insertionSort(int *A, int l, int r)
+{
+    int j, key, i;
+    for (j = l+1; j < r; j++)
+    {
+        key = A[j];
+        i = j - 1;
+
+        // Diferencia: A[i] > key cambia a A[i] < key
+        while (i >= l && A[i] > key)
+        {
+            A[i + 1] = A[i];
+            i--;
+        }
+        A[i + 1] = key;
+    }
+}
+
 int Partition(int *A, int p, int r)
 {
     int pivot = A[r];
@@ -54,52 +72,48 @@ int Partition(int *A, int p, int r)
 
 void QuickSort(int *A, int p, int r)
 {
-    if (p < r)
-    {
-        int pivot = Partition(A, p, r);
-        QuickSort(A, p, pivot - 1);
-        QuickSort(A, pivot + 1, r);
+    if (p >= r){
+        return;
     }
+    if (r - p <= 30){
+        insertionSort(A, p, r + 1);
+        return;
+    }
+    int pivot = Partition(A, p, r);
+    QuickSort(A, p, pivot - 1);
+    QuickSort(A, pivot + 1, r);  
 }
 
-void insertionSort(int *A, int n)
-{
-    int j, key, i;
-    for (j = 1; j < n; j++)
-    {
-        key = A[j];
-        i = j - 1;
-
-        // Diferencia: A[i] > key cambia a A[i] < key
-        while (i >= 0 && A[i] < key)
-        {
-            A[i + 1] = A[i];
-            i--;
-        }
-        A[i + 1] = key;
-    }
-}
-
-void tiempo_insertionSort(int *A, int n)
+void tiempo_QuickSort(int *A, int n)
 {
     Timer t;
-    insertionSort(A, n);
+    QuickSort(A, 0, n - 1);
     t.~Timer();
 }
 
 int main()
 {
-    int n = 10000;
-    int *A = new int[n];
-    generarNumeros(A, n);
+    int n1= 1000;
+    int n2= 10000;
+    int n3= 1000000;
 
-
-    cout << "tiempo de ejecucion del algoritmo insertionSort: " << endl;
-    tiempo_insertionSort(A, n);
+    int *A = new int[n1];
+    generarNumeros(A, n1);
+    cout << "tiempo de ejecucion del algoritmo quicksort: " << endl;
+    tiempo_QuickSort(A, n1);
     
+    int *B = new int[n2];
+    generarNumeros(B, n2);
+    cout << "tiempo de ejecucion del algoritmo quicksort: " << endl;
+    tiempo_QuickSort(B, n2);
+
+    int *C = new int[n3];
+    generarNumeros(C, n3);
+    cout << "tiempo de ejecucion del algoritmo quicksort: " << endl;
+    tiempo_QuickSort(C, n3);
 
     /*
-    for (int j = 0; j < n; j++)
+    for (int j = 0; j < n1; j++)
         std::cout << A[j] << " ";
     std::cout << std::endl;
     */
